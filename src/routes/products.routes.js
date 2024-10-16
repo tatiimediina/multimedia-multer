@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { uploadImage } from "../middlewares/upload.multer.middleware.js";
+import { uploadCloudinary } from "../middlewares/upload.cloudinary.middleware.js";
 
 const productsRouter = Router();
 
@@ -11,18 +12,24 @@ productsRouter.post("/multer", uploadImage, (req, res) => {
   });
 });
 
-productsRouter.post("/cloudinary", uploadImage, (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: "No se ha subido ningún archivo" });
+productsRouter.post(
+  "/cloudinary",
+  uploadCloudinary.single("image"),
+  (req, res) => {
+    if (!req.file) {
+      return res
+        .status(400)
+        .json({ message: "No se ha subido ningún archivo" });
+    }
+
+    // acceder a la URL del archivo subido en Cloudinary
+    const fileUrl = req.file.path;
+
+    res.status(200).json({
+      message: "Archivo subido exitosamente",
+      fileUrl,
+    });
   }
-
-  // acceder a la URL del archivo subido en Cloudinary
-  const fileUrl = req.file.path;
-
-  res.status(200).json({
-    message: "Archivo subido exitosamente",
-    fileUrl,
-  });
-});
+);
 
 export { productsRouter };

@@ -1,17 +1,16 @@
-// permite interactuar con su API para gestionar archivos en la nube.
 import { v2 as cloudinary } from "cloudinary";
-
-//almacenar archivos en Cloudinary utilizando Multer.
 import { CloudinaryStorage } from "multer-storage-cloudinary";
+import dotenv from "dotenv";
+dotenv.config();
 
 // genera identificadores únicos (UUIDs).
 import crypto from "node:crypto";
 
 // configura Cloudinary con las credenciales almacenadas en las variables de entorno.
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
 });
 
 // Define el almacenamiento usando CloudinaryStorage, para que Multer guarde los archivos en Cloudinary.
