@@ -3,6 +3,9 @@ import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
 import { productsRouter } from "./src/routes/products.routes.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 import path from "node:path";
 

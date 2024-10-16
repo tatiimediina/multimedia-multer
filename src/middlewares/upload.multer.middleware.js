@@ -1,4 +1,4 @@
-import { upload } from "../settings/upload.js";
+import { upload } from "../settings/upload.multer.js";
 
 export const uploadImage = (req, res, next) => {
   const uploadSingle = upload.single("image");
