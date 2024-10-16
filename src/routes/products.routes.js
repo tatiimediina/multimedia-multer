@@ -1,35 +1,27 @@
 import { Router } from "express";
 import { uploadImage } from "../middlewares/upload.multer.middleware.js";
 import { uploadCloudinary } from "../middlewares/upload.cloudinary.middleware.js";
+import {
+  createProductCloudinary,
+  createProductMulter,
+} from "../controllers/products.controllers.js";
 
 const productsRouter = Router();
 
 //para un solo archivo con single(), y para muchos array()
 
-productsRouter.post("/multer", uploadImage, (req, res) => {
-  res.status(201).json({
-    image: "http://localhost.4000/products/" + req.body.image,
-  });
-});
+productsRouter.post(
+  "/multer",
+  uploadImage,
+  createProductMulter,
+  (req, res) => {}
+);
 
 productsRouter.post(
   "/cloudinary",
   uploadCloudinary.single("image"),
-  (req, res) => {
-    if (!req.file) {
-      return res
-        .status(400)
-        .json({ message: "No se ha subido ningún archivo" });
-    }
-
-    // acceder a la URL del archivo subido en Cloudinary
-    const fileUrl = req.file.path;
-
-    res.status(200).json({
-      message: "Archivo subido exitosamente",
-      fileUrl,
-    });
-  }
+  createProductCloudinary,
+  (req, res) => {}
 );
 
 export { productsRouter };

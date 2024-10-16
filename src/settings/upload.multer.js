@@ -29,12 +29,12 @@ const limits = {
 
 const fileFilter = (req, file, cb) => {
   //jpeg jpg git png
-  const fileTypes = /jpeg|jpg|gif|png|webp/;
+  const fileTypes = /jpg|png/;
 
   const allowExtname = fileTypes.test(path.extname(file.originalname));
 
   if (!allowExtname) {
-    return cb(new Error("Solo se permiten imágenes(jpeg jpg png webp gif"));
+    return cb(new Error("Solo se permiten imágenes(jpg o png"));
   }
   return cb(null, true);
 };
